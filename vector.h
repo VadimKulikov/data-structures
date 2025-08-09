@@ -15,3 +15,5 @@ int capacity(vector* v);
 bool is_empty(vector* v);
 int at(vector* v, int idx);
 void* push(vector* v, int item);
+void* prepend(vector* v, int item);
+void print(vector* v);
