@@ -9,6 +9,7 @@ export class vector {
         int& operator[](int i);
         void push(int item);
         void prepend(int item);
+        void insert(int idx, int item);
     private:
         int sz;
         int* elem;
@@ -35,28 +36,38 @@ void vector::resize(int new_cap) {
 }
 
 void vector::push(int item) {
-    if (sz + 1 <= cap) {
-        elem[sz] = item;
-        sz += 1;
-    } else {
+    if (sz + 1 > cap) {
         resize(cap * 2);
-        elem[sz] = item;
-        sz += 1;
     }
+    elem[sz] = item;
+    sz += 1;
 }
 
 void vector::prepend(int item) {
-    if (sz + 1 <= cap) {
-        for (int i = sz - 1; i >= 0; i--) {
-            elem[i + 1] = elem[i];
-        }
-        elem[0] = item;
-    } else {
+    if (sz + 1 > cap) {
         resize(cap * 2);
-        for (int i = sz - 1; i >= 0; i--) {
+    }
+    for (int i = sz - 1; i >= 0; i--) {
+        elem[i + 1] = elem[i];
+    }
+    elem[0] = item;
+    sz += 1;
+}
+
+void vector::insert(int idx, int item) {
+    if (sz + 1 > cap) {
+        resize(cap * 2);
+    }
+
+    if (idx >= sz) {
+        return this->push(item);
+    } else if (idx < 0) {
+        return this->prepend(item);
+    } else {
+        for (int i = sz - 1; i >= idx; i--) {
             elem[i + 1] = elem[i];
         }
-        elem[0] = item;
+        elem[idx] = item;
+        sz += 1;
     }
-    sz += 1;
 }

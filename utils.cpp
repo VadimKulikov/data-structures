@@ -5,10 +5,12 @@ export void* Memcpy(void* dst, void* src, int size) {
     char* s = (char*) src;
 
     if (dst != nullptr && src != nullptr) {
-         *(d)= *(s);
-         *(d++);
-         *(s++);
-        --size;
+        while(size) {
+            *(d)= *(s);
+            *(d++);
+            *(s++);
+            --size;
+        }
     }
     return d;
 }

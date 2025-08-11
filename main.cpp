@@ -6,10 +6,15 @@ int main() {
     for (int i = 5; i < 10; i++) {
         v->push(i);
     }
-    for (int i = 0; i < 5; i ++) {
+    for (int i = 4; i >= 0; i --) {
         v->prepend(i);
     }
-    std::cout << "Vector size is " << v->size() << std::endl;
+    v->insert(4, 1);
+    int size = v->size();
+    std::cout << "Vector size is " << size << std::endl;
+    for (int i = 0; i < size; i++) {
+        std::cout << (*v)[i] << std::endl;
+    }
     delete(v);
 }
 
