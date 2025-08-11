@@ -1,11 +1,14 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(Vector C)
+project(ds LANGUAGES CXX)
 
-set(CMAKE_C_STANDARD 11)
-set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD 20)
+add_compile_options(-fmodules-ts)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
-add_library(vector STATIC vector.c vector.h)
-
-add_executable(main main.c)
-target_link_libraries(main vector)
+add_executable(main
+    utils.cpp
+    vector.cpp
+    main.cpp
+)
