@@ -15,6 +15,10 @@ int main() {
     for (int i = 0; i < size; i++) {
         std::cout << (*v)[i] << std::endl;
     }
+
+    int val = v->pop();
+    std::cout << "Last value is " << val << std::endl;
+
     delete(v);
 }
 

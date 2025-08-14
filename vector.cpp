@@ -10,6 +10,7 @@ export class vector {
         void push(int item);
         void prepend(int item);
         void insert(int idx, int item);
+        int pop();
     private:
         int sz;
         int* elem;
@@ -71,3 +72,17 @@ void vector::insert(int idx, int item) {
         sz += 1;
     }
 }
+
+int vector::pop() {
+    if (sz < 1) {
+        throw -1;
+    }
+
+    sz -= 1;
+    int val = elem[sz];
+    if (sz <= cap / 4) {
+        resize(cap / 2);
+    }
+
+    return val;
+} 
