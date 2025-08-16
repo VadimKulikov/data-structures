@@ -11,6 +11,8 @@ export class vector {
         void prepend(int item);
         void insert(int idx, int item);
         int pop();
+        void del(int idx);
+        void remove(int item);
     private:
         int sz;
         int* elem;
@@ -85,4 +87,26 @@ int vector::pop() {
     }
 
     return val;
-} 
+}
+
+void vector::del(int idx) {
+    if (idx < 0 || idx >= sz) {
+        return;
+    }
+
+    for (int i = idx + 1; i < sz; i++) {
+        elem[i-1] = elem[i]; // shift elements to the left, overriding removed element
+    }
+    sz -= 1;
+    if (sz <= cap / 4) {
+        resize(cap / 2);
+    }
+}
+
+void vector::remove(int item) {
+    for (int i = 0; i < sz; i++) {
+        if (elem[i] == item) {
+            del(i);
+        }
+    }
+}

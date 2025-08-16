@@ -18,6 +18,13 @@ int main() {
 
     int val = v->pop();
     std::cout << "Last value is " << val << std::endl;
+    v->push(1);
+
+    v->remove(1);
+    for (int i = 0; i < v->size(); i++) {
+        std::cout << (*v)[i] << std::endl;
+    }
+
 
     delete(v);
 }
