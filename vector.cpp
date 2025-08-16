@@ -1,44 +1,23 @@
-export module vector;
-import utils;
+#include "vector.hpp"
 
-export class vector {
-    public:
-        vector(int s);
-        ~vector();
-        int size();
-        int& operator[](int i);
-        void push(int item);
-        void prepend(int item);
-        void insert(int idx, int item);
-        int pop();
-        void del(int idx);
-        void remove(int item);
-    private:
-        int sz;
-        int* elem;
-        int cap;
-        void resize(int new_cap);
-};
-
-vector::vector(int s): elem {new int[s]}, sz{0}, cap{s} {}
-
-vector::~vector() {
-    delete[] elem;
-}
+vector::vector(int s): elem { std::make_unique<int[]>(sz) }, sz{0}, cap{s} {}
 
 int vector::size() { return sz; }
 
 int& vector::operator[](int i) { return elem[i]; }
 
 void vector::resize(int new_cap) {
-    int* new_arr = new int[new_cap];
-    Memcpy(new_arr, elem, sz * sizeof(int));
-    delete[] elem;
-    elem = new_arr;
+    spdlog::info("Resizing to capacity {}", new_cap);
+    std::unique_ptr<int[]> new_arr = std::make_unique<int[]>(new_cap);
+    for (int i = 0; i < sz; i++) {
+        new_arr[i] = elem[i];
+    }
+    elem = std::move(new_arr);
     cap = new_cap;
 }
 
 void vector::push(int item) {
+    spdlog::info("Appending item {}", item);
     if (sz + 1 > cap) {
         resize(cap * 2);
     }
@@ -47,6 +26,7 @@ void vector::push(int item) {
 }
 
 void vector::prepend(int item) {
+    spdlog::info("Prepending item {}", item);
     if (sz + 1 > cap) {
         resize(cap * 2);
     }
@@ -58,6 +38,7 @@ void vector::prepend(int item) {
 }
 
 void vector::insert(int idx, int item) {
+    spdlog::info("Inserting item {} at index {}", item, idx);
     if (sz + 1 > cap) {
         resize(cap * 2);
     }
@@ -76,6 +57,7 @@ void vector::insert(int idx, int item) {
 }
 
 int vector::pop() {
+    spdlog::info("Removing item at the end");
     if (sz < 1) {
         throw -1;
     }
@@ -90,6 +72,7 @@ int vector::pop() {
 }
 
 void vector::del(int idx) {
+    spdlog::info("Removing elemnt at index {}", idx);
     if (idx < 0 || idx >= sz) {
         return;
     }
@@ -104,6 +87,7 @@ void vector::del(int idx) {
 }
 
 void vector::remove(int item) {
+    spdlog::info("Removing all occurances of item {}", item);
     for (int i = 0; i < sz; i++) {
         if (elem[i] == item) {
             del(i);
