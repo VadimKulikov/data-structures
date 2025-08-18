@@ -12,6 +12,7 @@ class vector {
         int pop();
         void del(int idx);
         void remove(int item);
+        int find(int item);
     private:
         int sz;
         std::unique_ptr<int[]> elem;

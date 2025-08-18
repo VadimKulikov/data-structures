@@ -94,3 +94,14 @@ void vector::remove(int item) {
         }
     }
 }
+
+int vector::find(int item) {
+    for (int i = 0; i < sz; i++) {
+        if (elem[i] = item) {
+            spdlog::info("Found item {} at index {}", item, i);
+            return i;
+        }
+    }
+    spdlog::info("Did not find element {}", item);
+    return -1;
+}
